@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 
 import br.edu.unifio.eventos.entidades.Local;
 import br.edu.unifio.eventos.repository.LocalRepositorio;
@@ -40,6 +42,13 @@ public class LocalRepositorioTeste {
     }
 
     @Test 
+    public void deveBuscarTodosOsProdutos () {
+        List<Local> local = localRepositorio.findAll(Sort.by("name"));
+        assertEquals(5 , local.size());
+        assertEquals("Auditório Principal", local.get(0).getName());
+    }
+
+    @Test 
     public void deveExcluirUmId(){
         Local local = new Local ();
         local.setName("Jorje Salão de Festas Mundial");
@@ -68,6 +77,6 @@ public class LocalRepositorioTeste {
 
         localRepositorio.save(local);
 
-        
+        assertEquals("Ademar Novo Endereço", localRepositorio.findById(local.getId()).orElseThrow().getId());
     }
 }

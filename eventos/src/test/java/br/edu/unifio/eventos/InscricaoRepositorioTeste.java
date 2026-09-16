@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 
 import br.edu.unifio.eventos.entidades.Inscricao;
 import br.edu.unifio.eventos.repository.InscricaoRepositorio;
@@ -37,6 +39,14 @@ public class InscricaoRepositorioTeste {
         assertNotNull(inscricao);
         assertEquals(LocalDate.of(2026, 9, 03), inscricao.getDataInscricao());
     }
+
+    @Test 
+    public void deveBuscarTodosOsProdutos () {
+        List<Inscricao> inscricao = inscricaoRepositorio.findAll(Sort.by("dataInscricao"));
+        assertEquals(5 , inscricao.size());
+        assertEquals(LocalDate.of(2026, 9, 02), inscricao.get(0).getDataInscricao());
+    }
+
 
     @Test
     public void deveExcluirUmNovoId () {
