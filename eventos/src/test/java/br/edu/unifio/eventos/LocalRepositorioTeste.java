@@ -23,7 +23,7 @@ public class LocalRepositorioTeste {
 
     @Test 
     public void deveSalvarUmNovo () {
-        Local local = new Local ();
+        var local = new Local ();
         local.setName("Adriano Salões");
         local.setEndereco("Alameda doa Alemães");
         local.setSpace(new BigDecimal(2000));
